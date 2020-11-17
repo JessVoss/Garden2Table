@@ -1,0 +1,279 @@
+﻿<Window x:Class="Garden2Table.PresentationFolder.views.Consumer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Garden2Table.PresentationFolder.views" xmlns:local11="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
+        mc:Ignorable="d"
+        Title="Garden2Table" Height="600" Width="900"
+         Background="PaleGreen"
+        ResizeMode="NoResize" >
+    <Window.Resources>
+        <Style x:Key="HeaderStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style x:Key="SubHeaderStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="black"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style x:Key="DetailLabelStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="black"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style x:Key="RadioButtonStyle" TargetType="RadioButton">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style x:Key="DetailTextBoxStyle1" TargetType="TextBox">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="15"/>
+            <Setter Property="Foreground" Value="black"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style x:Key="DetailTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="15"/>
+            <Setter Property="Foreground" Value="black"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style x:Key="MasterLabelTextStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="WhiteSmoke"/>
+            <Setter Property="Foreground" Value="black"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <local11:BooleanToVisibilityConverter x:Key="myBoolToVisibilityConverter" />
+
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="500"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                Grid.Row="0">
+            <Label
+                Style="{StaticResource HeaderStyle}"
+                HorizontalAlignment="Center"
+                Content="Stands"/>
+            <Button
+                  x:Name="Button_Home"
+                  Width="70"
+                  Height="40"
+                  Margin="300,10,0,0"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Top"           
+                  FontSize="20"
+                  FontWeight="Bold"
+                  Content="Home"
+                  Style="{StaticResource ButtonStyle}"
+                  Command="{Binding Path=QuitApplicationCommand}"/>
+            <Button
+                  x:Name="Button_Quit"
+                  Width="70"
+                  Height="40"
+                  Margin="50,10,0,0"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Top"           
+                  FontSize="20"
+                  FontWeight="Bold"
+                  Content="Quit"
+                  Style="{StaticResource ButtonStyle}"
+                  Command="{Binding Path=QuitApplicationCommand}"/>
+            <Button
+                  x:Name="Button_Help"
+                  Width="70"
+                  Height="40"
+                  Margin="50,10,0,0"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Top"           
+                  FontSize="20"
+                  FontWeight="Bold"
+                  Content="Help"
+                  Style="{StaticResource ButtonStyle}"
+                  Command="{Binding Path=QuitApplicationCommand}"/>
+        </StackPanel>
+        <Grid
+            Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="259*"/>
+                <ColumnDefinition Width="200*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Grid.Column="0" Margin="60,20,0,10">
+                <StackPanel Orientation="Horizontal" >
+                    <RadioButton Style="{StaticResource RadioButtonStyle}" Content="Stand Name   " Command="{Binding RadioCommandSearchCrit}" CommandParameter="Name"/>
+                    <RadioButton Style="{StaticResource RadioButtonStyle}" Content="ZipCode  " Command="{Binding RadioCommandSearchCrit}" CommandParameter="Zipcode"/>
+                    <RadioButton Style="{StaticResource RadioButtonStyle}" Content="Product  " Command="{Binding RadioCommandSearchCrit}" CommandParameter="Product"/>
+                </StackPanel>
+            </Grid>
+            <StackPanel
+                Grid.Column="0"
+                Orientation="Vertical"
+                Margin="20,20,29,20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel
+                        Grid.Row="0"
+                        Margin="20,10,0,10"
+                        Orientation="Horizontal">
+                        <TextBox
+                            Name="TextBox_SearchCharacters"
+                            Width="200"
+                            Height="25"
+                            Text="{Binding SearchText}"/>
+                        <Button 
+                            x:Name="Button_Search" 
+                            Width="40"
+                            Height="25"
+                            Margin="3"
+                            VerticalAlignment="Center"  
+                            FontSize="10"
+                             FontWeight="Bold"
+                            Content="Search"
+                            Style="{StaticResource ButtonStyle}"
+                            Command="{Binding Path=ButtonSearchCommand}"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <Grid Grid.Row="1" Grid.Column="1">
+
+                            <Label Content="Filter by" HorizontalAlignment="Left" FontWeight="Bold" Margin="60,60,20,0" ></Label>
+                            <ComboBox Text="Filter By" Width="120" Height="30" HorizontalAlignment="Center" Margin="10,60,0,0" TabIndex="9" 
+                      SelectedItem="{Binding SelectedFilter}">
+                                <ComboBoxItem>Donation</ComboBoxItem>
+                                <ComboBoxItem>ZipCode</ComboBoxItem>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+                    <StackPanel
+                        Grid.Row="2"
+                        Margin="0,10,0,0"
+                        Orientation="Horizontal">
+                        <Label Content="Sort by:" Style="{StaticResource MasterLabelTextStyle}"/>
+                        <RadioButton 
+                            Name="RadioButton_EpisodeAsc"
+                            Margin="10,5,0,0"
+                            Content="Stands"
+                            Style="{StaticResource RadioButtonStyle}"
+                            Command="{Binding }"
+                            CommandParameter="Stands"
+                            IsChecked="True"/>
+                        <RadioButton 
+                            Name="RadioButton_DirectorSort"
+                            Margin="10,5,0,0"
+                            Content="ZipCode"
+                            Style="{StaticResource RadioButtonStyle}"
+                            Command="{Binding}"
+                            CommandParameter="Zip"/>
+                        
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Row="2"
+                        Margin="0,100,0,0"
+                        Orientation="Horizontal"> 
+                        <Button
+                            x:Name="Button_MapIt"
+                            Width="50"
+                            Height="25"
+                            Margin="15,0,0,0"
+                            FontSize="10"
+                            FontWeight="Bold"
+                            Content="Map It"
+                            Style="{StaticResource ButtonStyle}"
+                            Command="{Binding }"/>
+                       <Button
+                            x:Name="Button_ResetList"
+                            Width="40"
+                            Height="25"
+                            Margin="25,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="10"
+                            FontWeight="Bold"
+                            Content="Reset"
+                            Style="{StaticResource ButtonStyle}"
+                            Command="{Binding }"/>
+                       
+                    </StackPanel>
+
+                </Grid>
+            </StackPanel>
+            <StackPanel
+                     Grid.Column="0"
+                     Margin="10,250,10,10"
+                     Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Stand Name:            " Style="{StaticResource DetailLabelStyle}"/>
+                    <TextBox Text="{Binding SelectedStand.Name}" Style="{StaticResource DetailTextBoxStyle}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Donation Required:" Style="{StaticResource DetailLabelStyle}"/>
+                    <TextBox Text="{Binding SelectedStand.Donation***}" Style="{StaticResource DetailTextBoxStyle}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Products:        " Style="{StaticResource DetailLabelStyle}"/>
+                    <ListBox Margin="30,10,59,10" ItemsSource="{Binding }" SelectedItem="{Binding SelectedChar}" 
+                                         MaxHeight="150"
+                                         MinHeight="25" 
+                                         Width="152"/>
+                </StackPanel>
+
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid Height="350" HorizontalAlignment="Right" Width="94" Margin="432,76,368,75">
+
+
+                <ListBox
+                        x:Name="_master"
+                        Margin="100,-24,-232,44"
+                        BorderThickness="2"
+                        ItemsSource="{Binding Path=Stands}"
+                        SelectedItem="{Binding SelectedStand, Mode=TwoWay}"
+                        IsSynchronizedWithCurrentItem="True"
+                        ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="_master_SelectionChanged_1">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel 
+                                    Orientation="Vertical">
+                                <StackPanel
+                                        Orientation="Horizontal">
+                                    <Label
+                                            Content="{Binding EpisodeNumber}"
+                                            Width="30"                                
+                                            Style="{StaticResource MasterLabelTextStyle}"/>
+                                    <Label
+                                             Content="{Binding Name}"
+                                             Padding="0,6"
+                                            Style="{StaticResource MasterLabelTextStyle}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

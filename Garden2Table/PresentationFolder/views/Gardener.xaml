@@ -1,0 +1,185 @@
+﻿<Window x:Class="Garden2Table.PresentationFolder.views.Gardener"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Garden2Table.PresentationFolder.views" xmlns:local11="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
+        mc:Ignorable="d"
+        Title="Garden2Table" Height="600" Width="900"
+        Background="PaleGreen"
+        ResizeMode="NoResize" >
+    <Window.Resources>
+        <Style x:Key="HeaderStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style x:Key="SubHeaderStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="black"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style x:Key="DetailLabelStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="black"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style x:Key="RadioButtonStyle" TargetType="RadioButton">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style x:Key="DetailTextBoxStyle1" TargetType="TextBox">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Foreground" Value="black"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style x:Key="DetailTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Foreground" Value="black"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style x:Key="MasterLabelTextStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="WhiteSmoke"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <local11:BooleanToVisibilityConverter x:Key="myBoolToVisibilityConverter" />
+
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="500"/>
+        </Grid.RowDefinitions>
+        <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                Grid.Row="0">
+            <Label
+                Style="{StaticResource HeaderStyle}"
+                HorizontalAlignment="Center"
+                Content="Stands"/>
+            <Button
+                  x:Name="Button_Home"
+                  Width="70"
+                  Height="40"
+                  Margin="300,10,0,0"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Top"           
+                  FontSize="20"
+                  FontWeight="Bold"
+                  Content="Home"
+                  Style="{StaticResource ButtonStyle}"
+                  Command="{Binding Path=QuitApplicationCommand}"/>
+            <Button
+                  x:Name="Button_Quit"
+                  Width="70"
+                  Height="40"
+                  Margin="50,10,0,0"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Top"           
+                  FontSize="20"
+                  FontWeight="Bold"
+                  Content="Quit"
+                  Style="{StaticResource ButtonStyle}"
+                  Command="{Binding Path=QuitApplicationCommand}"/>
+            <Button
+                  x:Name="Button_Help"
+                  Width="70"
+                  Height="40"
+                  Margin="50,10,0,0"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Top"           
+                  FontSize="20"
+                  FontWeight="Bold"
+                  Content="Help"
+                  Style="{StaticResource ButtonStyle}"
+                  Command="{Binding Path=QuitApplicationCommand}"/>
+        </StackPanel>
+        <Grid
+            Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="209*"/>
+                <ColumnDefinition Width="200*"/>
+            </Grid.ColumnDefinitions>
+        <StackPanel>
+            <Grid Grid.Row="1" Grid.Column="1">
+
+                <Label Content="Filter by" HorizontalAlignment="Left" Margin="150,0,20,0" ></Label>
+                <ComboBox Text="Filter By" Width="120" Height="30" HorizontalAlignment="Center" Margin="100,0,0,0" TabIndex="9" 
+                      SelectedItem="{Binding SelectedFilter}">
+                        <ComboBoxItem></ComboBoxItem>
+                        <ComboBoxItem></ComboBoxItem>
+                        <ComboBoxItem></ComboBoxItem>
+                </ComboBox>
+            </Grid>
+        </StackPanel>
+       
+            
+            <StackPanel
+                Grid.Column="0"
+                Orientation="Vertical"
+                Margin="20,20,0,20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Height="370" HorizontalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="280"/>
+                            <ColumnDefinition Width="19*"/>
+                            <ColumnDefinition Width="0*"/>
+                        </Grid.ColumnDefinitions>
+                        <ListBox
+                        x:Name="_master"
+                        Grid.Column="0"
+                        Margin="20,30,10.2,10"
+                        BorderThickness="2"
+                        ItemsSource="{Binding}"
+                        SelectedItem="{Binding SelectedEpisode, Mode=TwoWay}"
+                        IsSynchronizedWithCurrentItem="True"
+                        ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="2">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel 
+                                    Orientation="Vertical">
+                                        <StackPanel
+                                        Orientation="Horizontal">
+                                            <Label
+                                            Content="{Binding EpisodeNumber}"
+                                            Width="30"                                
+                                            Style="{StaticResource MasterLabelTextStyle}"/>
+                                            <Label
+                                             Content="{Binding Name}"
+                                             Padding="0,6"
+                                            Style="{StaticResource MasterLabelTextStyle}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </Grid>
+                
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

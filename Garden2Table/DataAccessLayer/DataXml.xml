@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfStands>
+  <Stand>
+    <Id>1</Id>
+    <Name>Dusty's</Name>
+    <StreetAddress>
+      111 bilivard rd
+    </StreetAddress>
+    <ZipCode>49807</ZipCode>
+    <DonationRequired>Yes</DonationRequired>
+    <Products>Zucchini, Yellow Squash, Watermellon, Corn</Products>
+  </Stand>
+  <Stand>
+    <Id>2</Id>
+    <Name>Normalks</Name>
+    <StreetAddress>
+      111 test run rd
+    </StreetAddress>
+    <ZipCode>49607</ZipCode>
+    <DonationRequired>Yes</DonationRequired>
+    <Products>Zucchini, Yellow Squash, Tomattoes, Corn, Potatoes</Products>
+  </Stand>
+  <Stand>
+    <Id>3</Id>
+    <Name>Stanleys</Name>
+    <StreetAddress>
+      101 test run rd
+    </StreetAddress>
+    <ZipCode>49607</ZipCode>
+    <DonationRequired>No</DonationRequired>
+    <Products>Zucchini, Yellow Squash, Tomattoes, Green Beans, Potatoes</Products>
+  </Stand>
+</ArrayOfStands>
