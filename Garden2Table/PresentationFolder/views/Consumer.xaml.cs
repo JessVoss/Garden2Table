@@ -33,5 +33,9 @@ namespace Garden2Table.PresentationFolder.views
         {
 
         }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

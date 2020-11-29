@@ -59,8 +59,12 @@
             </Style.Triggers>
         </Style>
         <local11:BooleanToVisibilityConverter x:Key="myBoolToVisibilityConverter" />
-
     </Window.Resources>
+    
+    <Window.DataContext>
+        <local:Consumer/>
+    </Window.DataContext>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
@@ -86,7 +90,7 @@
                   FontWeight="Bold"
                   Content="Home"
                   Style="{StaticResource ButtonStyle}"
-                  Command="{Binding Path=QuitApplicationCommand}"/>
+                  Command="{Binding Path=HomeCommand}"/>
             <Button
                   x:Name="Button_Quit"
                   Width="70"
@@ -177,7 +181,7 @@
                             Margin="10,5,0,0"
                             Content="Stands"
                             Style="{StaticResource RadioButtonStyle}"
-                            Command="{Binding }"
+                            Command="{Binding SortStandsListCommand}"
                             CommandParameter="Stands"
                             IsChecked="True"/>
                         <RadioButton 
@@ -185,7 +189,7 @@
                             Margin="10,5,0,0"
                             Content="ZipCode"
                             Style="{StaticResource RadioButtonStyle}"
-                            Command="{Binding}"
+                            Command="{Binding SortStandsListCommand}"
                             CommandParameter="Zip"/>
                         
                     </StackPanel>
@@ -214,7 +218,7 @@
                             FontWeight="Bold"
                             Content="Reset"
                             Style="{StaticResource ButtonStyle}"
-                            Command="{Binding }"/>
+                            Command="{Binding ResetCommand}"/>
                        
                     </StackPanel>
 
@@ -230,11 +234,11 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Donation Required:" Style="{StaticResource DetailLabelStyle}"/>
-                    <TextBox Text="{Binding SelectedStand.Donation***}" Style="{StaticResource DetailTextBoxStyle}"/>
+                    <TextBox Text="{Binding SelectedStand.DonationRequired}" Style="{StaticResource DetailTextBoxStyle}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Products:        " Style="{StaticResource DetailLabelStyle}"/>
-                    <ListBox Margin="30,10,59,10" ItemsSource="{Binding }" SelectedItem="{Binding SelectedChar}" 
+                    <ListBox Margin="30,10,59,10" ItemsSource="{Binding }" 
                                          MaxHeight="150"
                                          MinHeight="25" 
                                          Width="152"/>
@@ -261,11 +265,11 @@
                                 <StackPanel
                                         Orientation="Horizontal">
                                     <Label
-                                            Content="{Binding EpisodeNumber}"
+                                            Content="{Binding Name}"
                                             Width="30"                                
                                             Style="{StaticResource MasterLabelTextStyle}"/>
                                     <Label
-                                             Content="{Binding Name}"
+                                             Content="{Binding ZipCode}"
                                              Padding="0,6"
                                             Style="{StaticResource MasterLabelTextStyle}"/>
                                 </StackPanel>

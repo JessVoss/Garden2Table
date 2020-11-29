@@ -9,14 +9,14 @@ using Garden2Table.BusinessLayer;
 
 namespace Garden2Table.Models
 {
-    class Stands : ObservableObject
+    public class Stands : ObservableObject
     {
         
         private string _name;
         private string _streetAddress;
         private string _zipCode;
         private string _donationRequired;
-        private ObservableCollection<string> _products;
+        private ObservableCollection<Product> _products;
         private string _reviews;
         public int Id { get; set; }
         
@@ -30,17 +30,17 @@ namespace Garden2Table.Models
             get { return _streetAddress; }
             set { _streetAddress = value; }
         }
-        private string ZipCode
+        public string ZipCode
         {
             get { return _zipCode; }
             set { _zipCode = value; }
         }
-        private string DonationRequired
+        public string DonationRequired
         {
             get { return _donationRequired; }
             set { _donationRequired = value; }
         }
-        private ObservableCollection<string> Products
+        public ObservableCollection<Product> Products
         {
             get { return _products; }
             set { _products = value; }
@@ -56,7 +56,7 @@ namespace Garden2Table.Models
 
         }
 
-        public Stands(int id, string name, string address, string zip, string donationReq, ObservableCollection<string>products)
+        public Stands(int id, string name, string address, string zip, string donationReq, ObservableCollection<Product>products)
         {
             Id = id;
             Name = name;

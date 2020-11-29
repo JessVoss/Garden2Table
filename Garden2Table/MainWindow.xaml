@@ -61,7 +61,7 @@
     </Window.Resources>
     <Grid>
         <Grid.Background>
-            <ImageBrush Stretch="Fill" ImageSource="..\..\Assets\light-leafy.jpg"
+            <ImageBrush Stretch="Fill" ImageSource=" Assets\light-leafy.jpg"
             AlignmentY="Top" AlignmentX="Center" Opacity=".7"/>
         </Grid.Background>
         <Grid.RowDefinitions>
@@ -89,7 +89,7 @@
                   FontWeight="Bold"
                   Content="Quit"
                   Style="{StaticResource ButtonStyle}"
-                  Command="{Binding Path=QuitApplicationCommand}"/>
+                  Click="Button_Click"/>
         </StackPanel>
         <Grid
             Grid.Row="1" RenderTransformOrigin="0.452,0.493">
@@ -122,7 +122,7 @@
                             FontWeight="Bold"
                             Content="Search For Garden Table"
                             Style="{StaticResource ButtonStyle}"
-                            Command="{Binding }"/>
+                            Click ="Consumer_Click"/>
                         <Button
                             x:Name="Button_Gardner"
                             Width="300"
@@ -133,7 +133,7 @@
                             FontWeight="Bold"
                             Content="Gardening Tools"
                             Style="{StaticResource ButtonStyle}"
-                            Command="{Binding }" RenderTransformOrigin="-0.651,3.068"/>
+                            Click="Gardener_Click" RenderTransformOrigin="-0.651,3.068"/>
 
                     </StackPanel>
 

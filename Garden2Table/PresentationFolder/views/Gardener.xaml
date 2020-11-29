@@ -59,8 +59,12 @@
             </Style.Triggers>
         </Style>
         <local11:BooleanToVisibilityConverter x:Key="myBoolToVisibilityConverter" />
-
     </Window.Resources>
+    
+    <Window.DataContext>
+        <local:Gardener/>
+    </Window.DataContext>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
@@ -85,7 +89,7 @@
                   FontWeight="Bold"
                   Content="Home"
                   Style="{StaticResource ButtonStyle}"
-                  Command="{Binding Path=QuitApplicationCommand}"/>
+                  Command="{Binding Path=HomeButtonCommand}"/>
             <Button
                   x:Name="Button_Quit"
                   Width="70"
@@ -117,20 +121,6 @@
                 <ColumnDefinition Width="209*"/>
                 <ColumnDefinition Width="200*"/>
             </Grid.ColumnDefinitions>
-        <StackPanel>
-            <Grid Grid.Row="1" Grid.Column="1">
-
-                <Label Content="Filter by" HorizontalAlignment="Left" Margin="150,0,20,0" ></Label>
-                <ComboBox Text="Filter By" Width="120" Height="30" HorizontalAlignment="Center" Margin="100,0,0,0" TabIndex="9" 
-                      SelectedItem="{Binding SelectedFilter}">
-                        <ComboBoxItem></ComboBoxItem>
-                        <ComboBoxItem></ComboBoxItem>
-                        <ComboBoxItem></ComboBoxItem>
-                </ComboBox>
-            </Grid>
-        </StackPanel>
-       
-            
             <StackPanel
                 Grid.Column="0"
                 Orientation="Vertical"
@@ -141,45 +131,174 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-
-                    <Grid Height="370" HorizontalAlignment="Center">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="280"/>
-                            <ColumnDefinition Width="19*"/>
-                            <ColumnDefinition Width="0*"/>
-                        </Grid.ColumnDefinitions>
-                        <ListBox
+                    <StackPanel
+                          Grid.Row="0"
+                        Margin="20,0,0,0"
+                        Orientation="Horizontal">
+                        <Label Content="           Stand Names:   " 
+                               Style="{StaticResource MasterLabelTextStyle}"/>
+                        <TextBox
+                            Name="TextBox_SearchCharacters"
+                            Width="130"
+                            Text="{Binding SearchText}"/>
+                        <Button 
+                            x:Name="Button_Search" 
+                            Width="70"
+                            Height="30"
+                            Margin="3"
+                            VerticalAlignment="Center"  
+                            FontSize="20"
+                            Content="Search"
+                            Style="{StaticResource ButtonStyle}"
+                            Command="{Binding Path=SearchButtonCommand}"/>
+                    </StackPanel>
+                   
+                </Grid>
+                <Grid Height="350" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="19*"/>
+                        <ColumnDefinition Width="0*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox
                         x:Name="_master"
                         Grid.Column="0"
-                        Margin="20,30,10.2,10"
+                        Margin="10,10,10.2,10"
                         BorderThickness="2"
-                        ItemsSource="{Binding}"
-                        SelectedItem="{Binding SelectedEpisode, Mode=TwoWay}"
+                        ItemsSource="{Binding Path=Stands}"
+                        SelectedItem="{Binding SelectedStand, Mode=TwoWay}"
                         IsSynchronizedWithCurrentItem="True"
                         ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.ColumnSpan="2">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel 
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel 
                                     Orientation="Vertical">
-                                        <StackPanel
+                                    <StackPanel
                                         Orientation="Horizontal">
-                                            <Label
-                                            Content="{Binding EpisodeNumber}"
+                                        <Label
+                                            Content="{Binding Name}"
                                             Width="30"                                
                                             Style="{StaticResource MasterLabelTextStyle}"/>
-                                            <Label
-                                             Content="{Binding Name}"
+                                        <Label
+                                             Content="{Binding ZipCode}"
                                              Padding="0,6"
                                             Style="{StaticResource MasterLabelTextStyle}"/>
-                                        </StackPanel>
                                     </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </Grid>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
-                
+                <StackPanel Grid.Column="1"
+                    Orientation="Vertical"/>
+                <StackPanel
+                     Grid.Row="2" Grid.Column="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+                    <Button 
+                        x:Name="Button_Save" 
+                        Width="70"
+                        Height="40"
+                        Margin="10,10,10,10"
+                        VerticalAlignment="Center"           
+                        FontSize="20"
+                        Content="Save"
+                        Style="{StaticResource ButtonStyle}"
+                         Visibility="{Binding IsEditingAdding, Converter={StaticResource myBoolToVisibilityConverter}}"
+                        Command="{Binding SaveStandCommand}"
+                        CommandParameter="Save"/>
+                    <Button 
+                        x:Name="Button_Cancel" 
+                        Width="70"
+                        Height="40"
+                        Margin="10,10,10,10"
+                        VerticalAlignment="Center"           
+                        FontSize="20"
+                        Content="Cancel"
+                        Style="{StaticResource ButtonStyle}"
+                         Visibility="{Binding IsEditingAdding, Converter={StaticResource myBoolToVisibilityConverter}}"
+                        Command="{Binding CancelStandCommand}"
+                        CommandParameter="CANCEL"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel
+                Grid.Column="1"
+                Orientation="Vertical">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=" *"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel
+                     Grid.Column="1"
+                     Margin="10,10,10,10"
+                     Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="       Stand Name:    " Style="{StaticResource DetailLabelStyle}"/>
+                            <TextBox Text="{Binding DetailedViewStand.Name}" Style="{StaticResource DetailTextBoxStyle}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Donation Required:" Style="{StaticResource DetailLabelStyle}"/>
+                            <TextBox Text="{Binding DetailedViewStand.DonationRequired}" Style="{StaticResource DetailTextBoxStyle}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="    Street Address:   " Style="{StaticResource DetailLabelStyle}" 
+                                   Visibility="{Binding IsEditingAdding, Converter={StaticResource myBoolToVisibilityConverter}}"/>
+                            <TextBox Text="{Binding DetailedViewStand.StreetAddress}" Style="{StaticResource DetailTextBoxStyle}"/>
+                          
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="         ZipCode:        " Style="{StaticResource DetailLabelStyle}"/>
+                            <TextBox Text="{Binding DetailedViewStand.ZipCode}" Style="{StaticResource DetailTextBoxStyle}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="      Products: " Style="{StaticResource DetailLabelStyle}"/>
+                            <ListBox Margin="30,10,59,10" ItemsSource="{Binding DetailedViewStand.Products}" SelectedItem="{Binding SelectedProducts}" 
+                                         MaxHeight="150"
+                                         MinHeight="25" 
+                                         Width="152"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Grid>
+
+                <StackPanel 
+                    Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+
+                    <Button 
+                        x:Name="Button_Add" 
+                        Width="70"
+                        Height="40"
+                        Margin="10,10,10,10"
+                        VerticalAlignment="Center"           
+                        FontSize="20"
+                        Content="Add"
+                        Style="{StaticResource ButtonStyle}"
+                        Command="{Binding Path=AddStandCommand}"/>
+                    <Button 
+                        x:Name="Button_Edit" 
+                        Width="70"
+                        Height="40"
+                        Margin="10,10,10,10"
+                        VerticalAlignment="Center"           
+                        FontSize="20"
+                        Content="Edit"
+                        Style="{StaticResource ButtonStyle}"
+                        Command="{Binding Path=EditStandCommand}"/>
+                    <Button 
+                        x:Name="Button_Delete" 
+                        Width="70"
+                        Height="40"
+                        Margin="10,10,10,10"
+                        VerticalAlignment="Center"           
+                        FontSize="20"
+                        Content="Delete"
+                        Style="{StaticResource ButtonStyle}"
+                        Command="{Binding Path=DeleteStandCommand}"/>
+                </StackPanel>
             </StackPanel>
         </Grid>
+
     </Grid>
 </Window>

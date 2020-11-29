@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Garden2Table.PresentationFolder.views;
 
 namespace Garden2Table
 {
@@ -24,5 +25,21 @@ namespace Garden2Table
         {
             InitializeComponent();
         }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+       
+        private void Consumer_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = new Consumer();
+            window.Show();
+        }
+        private void Gardener_Click(object sender, RoutedEventArgs e)
+        {
+            Window window = new Gardener();
+            window.Show();
+        }
+
     }
 }
